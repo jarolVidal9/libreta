@@ -15,7 +15,6 @@
     </div>
 
     <section class="content">
-    
       <!-- Left Block -->
       <div id="img-login">
         <img src="../../assets/img/animation-login2.gif" alt="imagen animada" />
@@ -24,9 +23,11 @@
       <!-- Right Bock -->
       <div id="form-login">
         <h1>¡Hola de nuevo!</h1>
+        <p id="register">
+          Pasate por aquí si aun no estas <a href="">registrado.</a>
+        </p>
 
-        <form action="">
-
+        <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
           <!-- Email -->
           <div class="component-email">
             <div>
@@ -35,10 +36,29 @@
             </div>
             <input
               type="email"
-              name="email"
               id="email"
               placeholder="Ingresa tu correo"
+              required
+              formControlName="email"
             />
+            <div
+              *ngIf="
+                formulario.get('email')?.invalid &&
+                (formulario.get('email')?.dirty ||
+                  formulario.get('email')?.touched)
+              "
+            >
+              <span
+                class="notice"
+                *ngIf="formulario.get('email')?.errors?.['required']"
+                >El correo electrónico es requerido.</span
+              >
+              <span
+                class="notice"
+                *ngIf="formulario.get('email')?.errors?.['email']"
+                >El correo electrónico no es válido.</span
+              >
+            </div>
           </div>
 
           <!-- Password -->
@@ -47,12 +67,42 @@
               <img src="../../assets/icons/password.png" alt="icon password" />
               <label for="password">Contraseña</label>
             </div>
-            <input type="password" name="password" id="password" />
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Ingresa tu contraseña"
+              required
+              formControlName="password"
+            />
+            <div
+              *ngIf="
+                formulario.get('password')?.invalid &&
+                (formulario.get('password')?.dirty ||
+                  formulario.get('password')?.touched)
+              "
+            >
+              <span
+                class="notice"
+                *ngIf="formulario.get('password')?.errors?.['required']"
+                >La contraseña es requerida.</span
+              >
+              <span
+                class="notice"
+                *ngIf="formulario.get('password')?.errors?.['min']"
+                >El correo electrónico no es válido.</span
+              >
+            </div>
           </div>
 
-          <p id="register">¿Aún no estas <a href="">registrado</a>?</p>
+          <div class="remember-me">
+            <input type="checkbox" name="remember-me" id="remember-me" />
+            <label for="">Recordarme</label>
+          </div>
 
-          <button class="button-login">Login</button>
+          <p id="forgotten">¿Olvidaste tu <a href="">contraseña</a>?</p>
+
+          <button class="button-login" type="submit">Login</button>
         </form>
       </div>
     </section>
