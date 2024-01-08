@@ -160,10 +160,9 @@ span{
   }
 }
 .notice{
-  color: rgba(0, 115, 255);
-  font-size: 14px;
+  color: red;
+  font-size: 13px;
   margin-top: 3px;
-  font-weight: bold;
 }
 
 
