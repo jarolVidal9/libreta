@@ -42,7 +42,11 @@ User.init({
     },
     password:{
         type: DataTypes.STRING,
-        allowNull: null
+        allowNull: false
+    },
+    image:{
+        type: DataTypes.JSON,
+        allowNull:true
     }
 
 },{

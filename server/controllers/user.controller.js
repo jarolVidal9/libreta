@@ -3,7 +3,6 @@ const {validateLogin} = require('../schemas/login')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.model')
-const Note = require('../models/note.model')
 
 
 const register = async (req, res) =>{
@@ -12,8 +11,7 @@ const register = async (req, res) =>{
       const result = validateRegister(req.body)
       if(result.success){
         //create table in database
-        await User.sync()
-        await Note.sync()
+        await User.sync({alter:true})
         //encript password
         const hashedPassword = await bcrypt.hash(result.data.password, 10);
         result.data.password = hashedPassword;
@@ -21,7 +19,7 @@ const register = async (req, res) =>{
         const usernameUnique =await  User.findOne({where:{username:result.data.username}})
         if(!emailUnique && !usernameUnique){
           await User.create(result.data)
-          return res.status(200).json({ message:"Created user"});
+          return res.status(200).json({ message:"Usuario creado"});
         }else{
           const errors = [];
           if (emailUnique) {
@@ -67,7 +65,7 @@ const login = async (req, res) =>{
       if(!passwordMatch){
         return res.status(401).json({error:{message:'La contrasena es incorrecta'}})
       }
-      const token = jwt.sign({ userId: user.id }, process.env.SECRET , { expiresIn: '1h' });
+      const token = jwt.sign({ user_id: user.user_id ,role:'user' }, process.env.SECRET , { expiresIn: '1h' });
       res.json({ token });
     }else{
       return res.status(400).json({error: JSON.parse(result.error.message)})
@@ -99,9 +97,26 @@ const deleteUser = async (req ,res) =>{
   }
 }
 
+const updateUser = async (req, res) =>{
+  try {
+    const id = req.params.user_id;
+    const result = validateRegister(req.body)
+    if(result.success){
+      await User.update(result.data, {where:{user_id:id}})
+      return res.status(200).json({ message:"Created user"});
+    }else{
+      return res.status(400).json({error: JSON.parse(result.error.message)})
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({message:'Error interno del servidor' })
+  }
+}
+
 module.exports = {
   register,
   login,
   getAllUser,
-  deleteUser
+  deleteUser,
+  updateUser
 }
