@@ -1,10 +1,5 @@
-const {Sequelize, DataTypes, Model, UUIDV4} = require('sequelize')
-
-const sequelize = new Sequelize('agenda','root','',{
-    host:'localhost',
-    dialect: 'mysql',
-    //port:3006
-});
+const {DataTypes, Model, UUIDV4} = require('sequelize')
+const sequelize = require('../db')
 
 class Note extends Model{}
 
