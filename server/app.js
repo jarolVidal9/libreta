@@ -1,16 +1,22 @@
+require('dotenv').config()
+//variables de desarrollo
 const express = require('express');
-const authController = require('./controllers/authController')
+const morgan = require('morgan');
+//importar rutas
+const userRouter = require('./router/user.router')
+const noteRouter = require('./router/note.router')
 
+//incializar
 const app = express();
-const PORT = 3000;
-
+const PORT =  process.env.PORT || 3000;
 app.use(express.json());
+app.use(morgan("dev"))
 
-app.post('/register',authController.register);
-app.post('/login', authController.login);
+//rutas
+app.use('/user/',userRouter);
+app.use('/note/',noteRouter);
 
-
-
+//incia el servidor en un puerto
 app.listen(PORT, () => {
   console.log(`Servidor en funcionamiento en http://localhost:${PORT}`);
 });

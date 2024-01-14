@@ -1,12 +1,10 @@
-var mysql = require('mysql2');
+const {Sequelize} = require('sequelize')
 
-
-var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : '',
-  database: 'agenda',
+const sequelize = new Sequelize('agenda','root','',{
+    host:'localhost',
+    dialect: 'mysql',
+    //port:3006
 });
 
 
-module.exports = connection;
+module.exports = sequelize
