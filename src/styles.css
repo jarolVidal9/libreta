@@ -1,3 +1,11 @@
+/* src/styles.css */
+
+/* Agrega estos imports al principio del archivo */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
 :root{
   color-scheme: light dark;
   font-family: 'Fira Sans Condensed', sans-serif;
