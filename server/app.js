@@ -13,8 +13,8 @@ app.use(express.json());
 app.use(morgan("dev"))
 
 //rutas
-app.use('/',userRouter);
-app.use('/',noteRouter);
+app.use('/user/',userRouter);
+app.use('/note/',noteRouter);
 
 //incia el servidor en un puerto
 app.listen(PORT, () => {
