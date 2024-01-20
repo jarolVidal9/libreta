@@ -9,6 +9,7 @@
 # Node
 /node_modules
 /server/node_modules
+/server/storage
 npm-debug.log
 yarn-error.log
 *.log

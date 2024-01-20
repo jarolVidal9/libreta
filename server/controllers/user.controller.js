@@ -2,7 +2,8 @@ const {validateRegister} = require('../schemas/register')
 const {validateLogin} = require('../schemas/login')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/user.model')
+const User = require('../models/user.model');
+const { log } = require('@angular-devkit/build-angular/src/builders/ssr-dev-server');
 
 
 const register = async (req, res) =>{
@@ -15,6 +16,7 @@ const register = async (req, res) =>{
         //encript password
         const hashedPassword = await bcrypt.hash(result.data.password, 10);
         result.data.password = hashedPassword;
+        if (req.file) result.data.image =req.file.filename
         const emailUnique = await User.findOne({where:{email:result.data.email}})
         const usernameUnique =await  User.findOne({where:{username:result.data.username}})
         if(!emailUnique && !usernameUnique){
@@ -113,10 +115,21 @@ const updateUser = async (req, res) =>{
   }
 }
 
+
+const getImage = async (req,res)=>{
+  try {
+    const user_id = req.params.user_id
+    const user = await User.findOne({where:{user_id:user_id}})
+    res.sendfile('server/storage/imgs/'+user.image);
+  } catch (error) {
+    res.status(500).json({message:error})
+  }
+}
 module.exports = {
   register,
   login,
   getAllUser,
   deleteUser,
-  updateUser
+  updateUser,
+  getImage
 }

@@ -32,7 +32,7 @@ const RegisterScheme  = z.object({
         password: z.string({required_error: "Debes ingresar una contraseña",
         }).min(5, {message:"La contraseña debe tener al menos 5 caracteres"}).max(20,{message:"La contraseña no debe tener mas de 20 caracteres"}),  
         
-        image: z.nullable(z.string())
+        image: z.any()
 });
 
 function validateRegister(object){
