@@ -108,12 +108,25 @@ export class RegisterComponent {
     if (this.formulario.valid) {
       console.log('Formulario válido');
       console.log(this.formulario.value);
+
+      const formData = new FormData();
+      const formValue = this.formulario.value;
+
+      // Agrega cada valor del formulario al FormData
+      Object.keys(formValue).forEach(key => {
+        formData.append(key, formValue[key]);
+      });
       
       // Llamada al servicio para enviar los datos al backend
-      this.apiBackService.registerNewUser(this.formulario.value).subscribe(
+      this.apiBackService.registerNewUser(formData).subscribe(
         (response) => {
+
           console.log('Respuesta del servidor:', response);
-          // demas acciones
+          if (response.status === 200){
+            // manejo de alertas para satisfactorio
+            alert("¡Usuario Registrado con exito!")
+            window.location.href= '/login'
+          }
         },
         (error) => {
           console.error('Error en la llamada al backend:', error);

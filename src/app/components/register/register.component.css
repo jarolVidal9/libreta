@@ -42,11 +42,11 @@
   box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.3);
   max-height: 90%;
   overflow-y: auto;
-  background-color: rgba(74, 74, 74, 0.2); 
-  backdrop-filter: blur(8px); 
-
-
+  background-color: rgba(0, 0, 0, 0.15); 
+  
+  
   scrollbar-color: rgb(43, 45, 45) rgba(0, 0, 0, 0);
+  backdrop-filter: blur(6px); 
 }
 
 .left::-webkit-scrollbar {

@@ -10,8 +10,8 @@ export class ApiBackService {
 
   constructor(private http: HttpClient) { }
 
-  registerNewUser(userData: any): Observable<any> {
-      return this.http.post(`${environment.apiUrl}/user/register`, userData);
+  registerNewUser(formData: FormData): Observable<any> {
+      return this.http.post(`${environment.apiUrl}/user/register`, formData);
     }
 
 }

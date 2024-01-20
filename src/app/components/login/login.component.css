@@ -16,7 +16,7 @@
   text-align: center;
   color: white;
   padding: 30px;
-  background-color: rgba(74, 74, 74, 0.1); 
+  background-color: rgba(0, 0, 0, 0.15); 
   backdrop-filter: blur(8px); 
   border-radius: 20px;
   border: 2px solid white; 
@@ -34,6 +34,7 @@
 
 span{
   color: rgb(0, 140, 255);
+  font-weight: bold;
 }
 
 .content{
@@ -161,7 +162,7 @@ span{
   }
 }
 .notice{
-  color: rgba(0, 115, 255);
+  color: red;
   font-size: 14px;
   margin-top: 3px;
   font-weight: bold;
