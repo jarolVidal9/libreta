@@ -1,10 +1,10 @@
-const {validateRegister} = require('../schemas/register')
-const {validateLogin} = require('../schemas/login')
+const {validateRegister} = require('../utils/schemas/register')
+const {validateLogin} = require('../utils/schemas/login')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
-const sendEmail = require('../mail/sendEmail');
-const messages = require('../mail/messages/messages')
+const sendEmail = require('../utils/emails/sendEmail');
+const message = require('../utils/emails/template/message')
 
 
 const register = async (req, res) =>{
@@ -23,7 +23,7 @@ const register = async (req, res) =>{
         if(!emailUnique && !usernameUnique){
           await User.create(result.data)
           //send mail notification
-          sendEmail(result.data.email,'welcome',messages.MessageWelcome(result.data.name));
+          sendEmail(result.data.email,'welcome',message.MessageWelcome(result.data.name));
           return res.status(200).json({ status: 200, message:"Usuario creado"});
         }else{
           const errors = [];
@@ -78,6 +78,14 @@ const login = async (req, res) =>{
   } catch (error) {
     console.error(error);
     res.status(500).json({ status: 500, message: 'Error interno del servidor' });
+  }
+}
+
+const forgotPassword = async (req,res)=>{
+  try {
+    
+  } catch (error) {
+    
   }
 }
 
