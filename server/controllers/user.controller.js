@@ -3,7 +3,8 @@ const {validateLogin} = require('../schemas/login')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
-const { log } = require('@angular-devkit/build-angular/src/builders/ssr-dev-server');
+const sendEmail = require('../mail/sendEmail');
+const messages = require('../mail/messages/messages')
 
 
 const register = async (req, res) =>{
@@ -21,6 +22,8 @@ const register = async (req, res) =>{
         const usernameUnique =await  User.findOne({where:{username:result.data.username}})
         if(!emailUnique && !usernameUnique){
           await User.create(result.data)
+          //send mail notification
+          sendEmail(result.data.email,'welcome',messages.MessageWelcome(result.data.name));
           return res.status(200).json({ status: 200, message:"Usuario creado"});
         }else{
           const errors = [];
