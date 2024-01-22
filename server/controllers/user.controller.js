@@ -83,16 +83,39 @@ const login = async (req, res) =>{
 
 const forgotPassword = async (req,res)=>{
   try {
-    
+    const email = req.body.email;
+    const user = await User.findOne({where:{email:email}});
+    if(!user) res.status(404).json({status: 404, error:true, message:"El usuario no se encuentra registrado"});
+    else{
+      const token = jwt.sign({ user_id: user.user_id, type:'reset_password' }, process.env.SECRET , { expiresIn: '1h' });
+      sendEmail(user.email,'Reset Password',message.MessageResetPassword(user.name, token));
+      res.status(200).json({ status:200, token:token})
+    }
   } catch (error) {
-    
+    console.error(error);
+    res.status(500).json({status:500, message:'Error interno en el servidor'})
+  }
+}
+
+const resetPassword = async (req, res)=>{
+  try {
+    const user_id = req.user.user_id;
+    const user = await User.findOne({where:{user_id:user_id}});
+    if(!user) return res.status(404).json({status:404, message:"Usuario no encontrado"})
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    await User.update({password:hashedPassword},{where:{user_id:user_id}})
+    sendEmail(user.email,'Confirm Reset Password',message.confirmResetPassword(user.name));
+    res.status(200).json({status:200, message:'La contraseña se ha actualizado'})
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({status:500, message:'Error interno en el servidor'})
   }
 }
 
 const getAllUser = async (req,res)=>{
   try {
     const users = await User.findAll()
-    res.status(200).json({status: 500},users)
+    res.status(200).json({status:200,users})
   } catch (error) {
     console.error(error);
     res.status(500).json({ status: 500, message: 'Error interno del servidor' });
@@ -142,5 +165,7 @@ module.exports = {
   getAllUser,
   deleteUser,
   updateUser,
-  getImage
+  getImage,
+  forgotPassword,
+  resetPassword
 }

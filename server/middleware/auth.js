@@ -5,6 +5,7 @@ const verifyToken = (req, res, next) => {
     if(!token) return res.status(401).json({message:'Acceso denegado'})
     try {
         const verified = jwt.verify(token, process.env.SECRET)
+        //guarda los datos del token en .user en este caso solo el user_id
         req.user = verified
         next()
     } catch (error) {

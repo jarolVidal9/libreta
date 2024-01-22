@@ -1,4 +1,3 @@
-// common.js
 const { Resend } = require('resend');
 const resend = new Resend(process.env.APIKEYMAIL);
 
@@ -9,9 +8,6 @@ async function sendEmail(to, subject,html) {
     subject: subject,
     html: html,
   });
-  console.error(error);
-  Console.log(data)
-
 }
 module.exports = sendEmail;
 

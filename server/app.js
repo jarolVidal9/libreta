@@ -9,11 +9,11 @@ const noteRouter = require('./router/note.router')
 
 //incializar
 const app = express();
-const PORT =  process.env.PORT || 3000;
+const PORT =  process.env.PORTBACK || 3000;
 
 //configuracion de cors para aceptar request de front
 app.use(cors({
-  origin: 'http://localhost:4200', // Reemplaza con la URL de tu frontend
+  origin: process.env.FRONTURL, // Reemplaza con la URL de tu frontend
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 }));
