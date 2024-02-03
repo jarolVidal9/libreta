@@ -3,7 +3,8 @@ const Note = require('../models/note.model')
 const createNote = async (req,res) =>{
     try {
         const user_id = req.user.user_id;
-        console.log(req.user.user_id);
+        await Note.sync({alter:true})
+        if (req.file) req.body.images =req.file.filename
         const data = req.body
         data.user_id = user_id;
         Note.create(data)
@@ -43,7 +44,7 @@ const deleteNote = async(req, res)=>{
 const getNotesByUser = async (req, res)=>{
     try {
         const user_id = req.user.user_id
-        const notes  = await Note.findAll({where:{user_id:user_id}})
+        const notes  = await Note.findAll({where:{user_id:user_id},order: [['updatedAt', 'DESC']]})
         res.status(200).json(notes)
     } catch (error) {
         console.log(error);

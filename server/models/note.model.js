@@ -19,7 +19,7 @@ Note.init({
         type:DataTypes.TEXT
     },
     images:{
-        type: DataTypes.JSON
+        type: DataTypes.STRING
     },
     color:{
         type: DataTypes.STRING

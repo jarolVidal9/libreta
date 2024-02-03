@@ -12,7 +12,7 @@ router.post('/resetPassword',authUser,userController.resetPassword);
 router.get('/getAllUsers',userController.getAllUser);
 router.delete('/deleteUser/:user_id',userController.deleteUser);
 router.put('/updateUser/:user_id',userController.updateUser);
-router.get('/getImage/:user_id',userController.getImage);
+router.get('/getImage',authUser,userController.getImage);
 
 
 module.exports = router
