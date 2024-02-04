@@ -3,6 +3,7 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { ApiBackService } from '../../../core/services/api-back.service';
 import { CommonModule } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
+import { initFlowbite } from 'flowbite';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class MenuComponent {
   imgUrl: any
   constructor(private apiBackService:ApiBackService, private cookieService:CookieService, private router:Router){}
   ngOnInit(): void {
+      initFlowbite()
       this.apiBackService.getImageUser().subscribe(
         (blob: Blob)=>{
           this.imgUrl = URL.createObjectURL(blob);

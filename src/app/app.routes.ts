@@ -9,11 +9,12 @@ import { CheckListComponent } from './components/principal/check-list/check-list
 
 export const routes: Routes = [
     {   path: 'menu', 
-        component:MenuComponent, canActivate:[loginGuard],
+    component:MenuComponent, 
+        canActivate:[loginGuard],
         children:[
             {
                 path:'notes',
-                component:NotesComponent
+                component:NotesComponent,
             },
             {
                 path:'reminders',
@@ -27,4 +28,6 @@ export const routes: Routes = [
     },
     { path: 'login', component: LoginComponent},
     { path: 'register', component: RegisterComponent},
+    { path: '', redirectTo:'/menu/notes', pathMatch:'full'},
+
 ];
