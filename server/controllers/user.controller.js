@@ -71,7 +71,7 @@ const login = async (req, res) =>{
         return res.status(401).json({ status: 401, error:{message:'La contrasena es incorrecta'}})
       }
       const token = jwt.sign({ user_id: user.user_id ,role:'user' }, process.env.SECRET , { expiresIn: '1h' });
-      res.json({ token });
+      res.json({status:200, token: token });
     }else{
       return res.status(400).json({status: 400, error: JSON.parse(result.error.message)})
     }
@@ -152,7 +152,7 @@ const updateUser = async (req, res) =>{
 
 const getImage = async (req,res)=>{
   try {
-    const user_id = req.params.user_id
+    const user_id = req.user.user_id
     const user = await User.findOne({where:{user_id:user_id}})
     res.sendfile('server/storage/imgs/'+user.image);
   } catch (error) {

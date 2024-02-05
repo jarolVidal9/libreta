@@ -1,13 +1,9 @@
 import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-  FormControl,
-} from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import {FormBuilder, FormGroup,  Validators,  ReactiveFormsModule, FormControl,} from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { ApiBackService } from '../../core/services/api-back.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +15,7 @@ import { RouterLink } from '@angular/router';
 export class LoginComponent {
   formulario!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private apiBackService:ApiBackService, private cookieServices:CookieService, private router: Router) {
     this.formulario = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.min(8)]],
@@ -32,6 +28,15 @@ export class LoginComponent {
       // Realizar acciones cuando el formulario es válido
       console.log('Formulario válido');
       console.log(this.formulario.value);
+      this.apiBackService.login(this.formulario.value).subscribe(
+        (response)=>{
+          const expirationDate = new Date();
+          expirationDate.setHours(expirationDate.getHours() + 1);
+          this.cookieServices.set("token",response.token,{ expires:expirationDate})
+          this.router.navigate(["menu/notes"])
+        },
+        (error)=>console.error(error)
+      )
     } else {
       // Mostrar mensajes de error o realizar acciones para formularios inválidos
       console.log('Formulario inválido');
