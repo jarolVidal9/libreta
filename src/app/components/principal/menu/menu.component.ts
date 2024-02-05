@@ -15,6 +15,7 @@ import { initFlowbite } from 'flowbite';
 })
 export class MenuComponent {
   imgUrl: any
+  lastClick = 'notes';
   constructor(private apiBackService:ApiBackService, private cookieService:CookieService, private router:Router){}
   ngOnInit(): void {
       initFlowbite()
@@ -32,5 +33,8 @@ export class MenuComponent {
     } catch (error) {
       console.error(error);
     }
+  }
+  lastClickOption( last: string){
+    this.lastClick = last
   }
 }

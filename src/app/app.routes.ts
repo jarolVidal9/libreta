@@ -6,6 +6,7 @@ import { loginGuard } from './guards/login.guard';
 import { NotesComponent } from './components/principal/notes/notes.component';
 import { RemindersComponent } from './components/principal/reminders/reminders.component';
 import { CheckListComponent } from './components/principal/check-list/check-list.component';
+import { CreateNoteComponent } from './components/principal/create-note/create-note.component';
 
 export const routes: Routes = [
     {   path: 'menu', 
@@ -15,6 +16,10 @@ export const routes: Routes = [
             {
                 path:'notes',
                 component:NotesComponent,
+            },
+            {
+                path:'createNote',
+                component: CreateNoteComponent
             },
             {
                 path:'reminders',

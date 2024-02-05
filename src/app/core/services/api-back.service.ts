@@ -24,6 +24,12 @@ export class ApiBackService {
   getImageUser(): Observable<Blob>{
     return this.http.get(`${environment.apiUrl}/user/getImage`,{headers:this.createheaders(),responseType:'blob'})
   }
+  createNewNote(formData: FormData){
+    return this.http.post(`${environment.apiUrl}/note/createNote`,formData,{headers:this.createheaders()})
+  }
+  deleteNote(note_id:string){
+    return this.http.delete(`${environment.apiUrl}/note/deleteNote/`+note_id, {headers:this.createheaders()})
+  }
 
   //crear header
   createheaders(){

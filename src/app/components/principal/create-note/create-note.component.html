@@ -1,0 +1,60 @@
+<main>
+    <a [routerLink]="['../notes']"  > Arrow return</a>
+    <h1 class="text-center text-xl p-2 border-b rounded-t-lg border-gray-600" [ngStyle]="{ 'background-color': selectedColor }" >Crear Una nueva nota</h1>
+    <form [ngStyle]="{ 'background-color': selectedColor }" class="p-4 md:p-5 rounded-b-lg" 
+    [formGroup]="formNewNote"
+    (ngSubmit)="onSubmitCreateNote()">
+        <div class="grid gap-4 mb-4 grid-cols-2">
+            <div class="col-span-2">
+                <div class="relative z-0">
+                    <input type="text" id="title"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        formControlName="title" />
+                    <label
+                        class="absolute text-sm text-gray-500 dark:text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-white peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Titulo</label>
+                    <p *ngIf="formNewNote.get('title')?.errors?.['required']"
+                        class="mt-2 text-sm text-red-600 dark:text-red-500">
+                        El titulo es requerido
+                    </p>
+                </div>
+            </div>
+            <div class="col-span-2">
+                <div class="relative z-0">
+                    <textarea type="text" id="text" formControlName="text"
+                        class="block py-2.5 px-0 w-full text-sm placeholder:text-white text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        placeholder="Contenido"></textarea>
+                    <p *ngIf="formNewNote.get('text')?.errors?.['required']"
+                        class="mt-2 text-sm text-red-600 dark:text-red-500">
+                        El texto es requerido
+                    </p>
+                </div>
+            </div>
+            <div class="col-span-2">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Imagen</label>
+                <input
+                    class="block w-full text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                    id="image" type="file" accept="image/*">
+            </div>
+            <div class="col-span-2">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecciona el
+                    color de la nota</label>
+                <div class="flex space-x-2">
+                    <button *ngFor="let color of colors" type="button" (click)="selectColor(color)"
+                        class="w-8 h-8 rounded-full cursor-pointer focus:outline-none border-2 border-white dark:border-gray-600"
+                        [style.backgroundColor]="color"></button>
+                </div>
+            </div>
+        </div>
+        <div class="w-full justify-center flex">
+            <button type="submit"
+                class="text-white  inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                Crear nueva nota
+            </button>
+        </div>
+    </form>
+</main>
