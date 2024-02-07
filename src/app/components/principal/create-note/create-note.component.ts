@@ -46,7 +46,6 @@ export class CreateNoteComponent {
       });
       this.apiBackService.createNewNote(formData).subscribe(
         (response)=>alert('La nota se ha creado')
-        
       )
     }else{
       alert('formulario invalido')

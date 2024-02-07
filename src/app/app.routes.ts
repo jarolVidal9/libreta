@@ -7,6 +7,7 @@ import { NotesComponent } from './components/principal/notes/notes.component';
 import { RemindersComponent } from './components/principal/reminders/reminders.component';
 import { CheckListComponent } from './components/principal/check-list/check-list.component';
 import { CreateNoteComponent } from './components/principal/create-note/create-note.component';
+import { EditNoteComponent } from './components/principal/edit-note/edit-note.component';
 
 export const routes: Routes = [
     {   path: 'menu', 
@@ -20,6 +21,9 @@ export const routes: Routes = [
             {
                 path:'createNote',
                 component: CreateNoteComponent
+            },{
+                path:'editNote/:note_id',
+                component: EditNoteComponent
             },
             {
                 path:'reminders',
