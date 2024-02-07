@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiBackService } from '../../../core/services/api-back.service';
 import { initFlowbite } from 'flowbite';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-create-note',
@@ -21,11 +21,11 @@ export class CreateNoteComponent {
     title:['',[Validators.required]],
     text: ['',[Validators.required]],
     Image: [''],
-    color:['',[Validators.required]]
+    color:['#232427',[Validators.required]]
   })
   //colors
   colors: string[]=['#264D3B', '#472E5B', '#232427', '#6C394F', '#692B17']
-  constructor(private apiBackService:ApiBackService, private formBuilder: FormBuilder){}
+  constructor(private apiBackService:ApiBackService, private formBuilder: FormBuilder, private router:Router){}
 
   ngOnInit(): void {
     initFlowbite()
@@ -45,7 +45,13 @@ export class CreateNoteComponent {
         formData.append(key, formValue[key]);
       });
       this.apiBackService.createNewNote(formData).subscribe(
-        (response)=>alert('La nota se ha creado')
+        (response)=>{
+          alert('La nota se ha creado')
+          setTimeout(()=>{
+            this.router.navigate(['menu/notes'])
+          },1000)
+        },
+        (error)=>alert('lo sentimos tenemos algunos problemas intentalo mas tarde')
       )
     }else{
       alert('formulario invalido')
