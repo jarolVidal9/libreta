@@ -3,8 +3,6 @@
     height: 100vh;
     display: block;
     object-fit: cover;
-    position: absolute;
-    background-size: cover;
   }
 
 
@@ -15,9 +13,9 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 60vw;
-  max-height: 100%;
+  max-height: 90%;
   text-align: center;
-  --halfWidth: calc(50% * 0.35);
+  --halfWidth: calc(50% * 0.40);
 }
 
 .logo {
@@ -28,6 +26,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+  font-size: larger;
 }
 
 
@@ -42,11 +41,10 @@
   box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.3);
   max-height: 90%;
   overflow-y: auto;
-  background-color: rgba(0, 0, 0, 0.15); 
+  background-color: rgba(0, 0, 0, 0.2); 
   
   
   scrollbar-color: rgb(43, 45, 45) rgba(0, 0, 0, 0);
-  backdrop-filter: blur(6px); 
 }
 
 .left::-webkit-scrollbar {
@@ -84,8 +82,9 @@
   margin: 50px 0;
 }
 
-.field {
+.field, .field-gender {
   margin-top: 10px;
+  
 }
 
 .field div {
@@ -97,11 +96,23 @@
 
 .field input{
   width: 90%;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.1);
   border: none;
   height: 20px;
+  margin-bottom: 5px;
   border-bottom: 3px double white;
 }
+
+.field select{
+  position: relative;
+  margin: 0;
+  padding: 0 0 0 5px;
+}
+.field input::placeholder,
+  .field input::placeholder{
+    color: rgba(255, 255, 255, 0.7);
+
+  }
 
 .field select{
   width: 90%;
@@ -189,10 +200,8 @@
 }
 
 /* Responsive */
-@media screen and (max-width: 800px) {
-  .background-register {
-    height: 100%;
-  }
+@media screen and (max-width: 900px) {
+  
   .right {
     display: none;
   }

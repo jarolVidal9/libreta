@@ -1,17 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RegisterComponent } from './components/register/register.component';
-
+import { initFlowbite } from 'flowbite';
+import { AlertService } from './core/services/alerts.service';
+import { AlertsComponent } from './components/alerts/alerts.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, LoginComponent, ReactiveFormsModule, RegisterComponent],
+  imports: [CommonModule, RouterOutlet , AlertsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'libreta';
+
+  constructor(private alertService: AlertService) { }
+
+  ngOnInit(): void {
+
+    initFlowbite();
+  }
 }

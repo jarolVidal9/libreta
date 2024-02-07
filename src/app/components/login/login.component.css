@@ -3,7 +3,6 @@
   height: 100vh;
   display: block;
   object-fit: cover;
-  position: absolute;
 }
 
 .container {
@@ -12,15 +11,21 @@
   left: 50%;
   transform: translate(-50%, -50%);
   max-width: 600px;
-  height: auto;
+  max-height: 900px;
   text-align: center;
   color: white;
-  padding: 30px;
-  background-color: rgba(0, 0, 0, 0.15); 
-  backdrop-filter: blur(8px); 
+  padding: 2%;
+  backdrop-filter: blur(5px); 
   border-radius: 20px;
   border: 2px solid white; 
   box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.2); 
+
+  scrollbar-color: rgb(43, 45, 45) rgba(0, 0, 0, 0);
+}
+.container::-webkit-scrollbar {
+  width: 10px;
 }
 
 .logo {
@@ -87,19 +92,29 @@ span{
 
 .component-email input,
   .component-password input{
-  width: 80%;
-  background-color: transparent;
+  width: 90%;
+  background-color: rgba(0, 0, 0, 0.1);
   border: none;
   height: 20px;
   border-bottom: 3px double white;
   height: 20px;
+  margin-top: 5px;
+
 }
+
+.component-email input::placeholder,
+  .component-password input::placeholder{
+    color: rgba(255, 255, 255, 0.7);
+
+  }
+
 
 .remember-me{
   display: flex;
   margin-top: 10px;
   font-size: 14px;
   align-items: center;
+  gap: 8px;
 }
 
 #register{
@@ -123,6 +138,8 @@ span{
   margin: 30px auto;
   background-size: 1500% auto;
   transition: background-color 0.5s;
+  font-size: medium;
+
 }
 
 .button-login:hover {
@@ -146,11 +163,19 @@ span{
     background-position: 100% 50%;
   }
 }
+/* 
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
 
 @media screen and (max-width: 728px) {
   .container {
-    width: 70%;
-    max-height: 90vh;
+    position: block;
+    width: 90%;
+    max-height: 80vh;
+    
   }
   .content{
     display: flex;
