@@ -51,9 +51,21 @@ const getNotesByUser = async (req, res)=>{
         res.status(500).json({message:'Error en el servidor'})
     }
 }
+
+const getOneNote = async(req,res)=>{
+    try{
+        const note_id = req.params.note_id
+        const note =await Note.findOne({where:{note_id:note_id}})
+        res.status(200).json({status:200, note:note})
+    }catch(error){
+        console.log(error);
+        res.status(500).json({message:'Error en el servidor'})
+    }
+}
 module.exports = {
     createNote,
     editNote,
     deleteNote,
-    getNotesByUser
+    getNotesByUser,
+    getOneNote
 }

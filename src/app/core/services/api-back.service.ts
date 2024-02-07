@@ -30,6 +30,12 @@ export class ApiBackService {
   deleteNote(note_id:string){
     return this.http.delete(`${environment.apiUrl}/note/deleteNote/`+note_id, {headers:this.createheaders()})
   }
+  getOneNote(note_id:string){
+    return this.http.get(`${environment.apiUrl}/note/getOneNote/`+note_id, {headers:this.createheaders()})
+  }
+  editNote(formData:FormData, note_id:string){
+    return this.http.put(`${environment.apiUrl}/note/editNote/`+note_id, formData,{headers:this.createheaders()})
+  }
 
   //crear header
   createheaders(){
