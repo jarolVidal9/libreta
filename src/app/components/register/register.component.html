@@ -41,7 +41,6 @@
           </div>
         </div>
         
-        
         <!-- Nombre -->
         <div class="field">
           <div>
@@ -176,12 +175,12 @@
         </div>
 
         <!-- Género -->
-        <div class="field">
+        <div class="field ">
           <div>
             <img src="../../assets/icons/genre.png" alt="icon gender">
             <label for="gender">Género</label>
           </div>
-          <select id="gender" required formControlName="gender">
+          <select id="gender" class="bg-zinc-800" formControlName="gender">
             <option *ngFor="let gender of genders" [value]="gender">{{gender}}</option>
           </select>
           <div
@@ -303,8 +302,8 @@
         <button class="button-register" type="submit">Crear cuenta</button>
       </form>
 
-      <p class="to-loggin">
-        Ya tienes cuenta? <a routerLink="/login">Logueate</a>
+      <p class="to-loggin pt-4">
+        Ya tienes cuenta? <a class="text-pink-500 underline font-bold" routerLink="/login">Logueate</a>
       </p>
 
     </section>

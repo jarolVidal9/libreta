@@ -62,13 +62,13 @@ const login = async (req, res) =>{
       //search the user for email
       const user = await User.findOne({where:{email:email}})
       if (!user){
-        return res.status(401).json({status: 401, error:{message:'El email no se encuentra registrado'}})
+        return res.status(401).json({status: 401, error:[{message:'El email no se encuentra registrado'}]})
       }
       const hashedPassword = user.password
       //compare password
       const passwordMatch = await bcrypt.compare(password, hashedPassword);
       if(!passwordMatch){
-        return res.status(401).json({ status: 401, error:{message:'La contrasena es incorrecta'}})
+        return res.status(401).json({ status: 401, error:[{message:'La contrasena es incorrecta'}]})
       }
       const token = jwt.sign({ user_id: user.user_id ,role:'user' }, process.env.SECRET , { expiresIn: '1h' });
       res.json({status:200, token: token });
