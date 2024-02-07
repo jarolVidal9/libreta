@@ -1,6 +1,5 @@
 /* src/styles.css */
 
-/* Agrega estos imports al principio del archivo */
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';

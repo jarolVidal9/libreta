@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, booleanAttribute } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgFor, NgIf, CommonModule } from '@angular/common';
 import {
@@ -12,6 +12,8 @@ import {
 } from '@angular/forms';
 
 import { ApiBackService } from '../../core/services/api-back.service';
+import { AlertService } from '../../core/services/alerts.service';
+
 
 @Component({
   selector: 'app-register',
@@ -25,7 +27,11 @@ export class RegisterComponent {
 
   formulario: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private apiBackService: ApiBackService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private apiBackService: ApiBackService,
+    private AlertService: AlertService,
+  ) {
     // creacion del formulario para los campos
     this.formulario = this.formBuilder.group({
       image: ['', [Validators.required]],
@@ -47,7 +53,7 @@ export class RegisterComponent {
     const file = event.target.files[0];
     if (file) {
       const inputElement = document.getElementById('profile_image') as HTMLInputElement;
-      inputElement.value = '';
+      inputElement.value = ''; // evita que el navegador reaccione por inyeccion de formularios
 
       const reader = new FileReader();
       reader.onload = (e: any) => {
@@ -75,7 +81,7 @@ export class RegisterComponent {
     return today.toISOString().split('T')[0];
   }
 
-  // Validacion y arreglo para el campo genero
+  // regla de validacion y arreglo para el campo genero
   genders = ['', 'Masculino', 'Femenino', '39 tipos de gay'];
 
   genderValidator(control: AbstractControl): ValidationErrors | null {
@@ -116,26 +122,28 @@ export class RegisterComponent {
       Object.keys(formValue).forEach(key => {
         formData.append(key, formValue[key]);
       });
-      
+
       // Llamada al servicio para enviar los datos al backend
       this.apiBackService.registerNewUser(formData).subscribe(
-        (response) => {
+        {
+          next: response => {
 
-          console.log('Respuesta del servidor:', response);
-          if (response.status === 200){
-            // manejo de alertas para satisfactorio
-            alert("¡Usuario Registrado con exito!")
-            window.location.href= '/login'
+            this.AlertService.showAlert(response.status, '¡Te has registrado exitosamente!', 1500);
+            setTimeout(() => {
+              window.location.href = '/login';
+            }, 1500)
+          },
+          error: err => {
+            console.error('Error en la llamada al backend:', err);
+            this.AlertService.showAlert(err.status, err.error.error ?? err.error, 6000);
           }
-        },
-        (error) => {
-          console.error('Error en la llamada al backend:', error);
-          // manejo de errores
         }
       )
-    } else {
+    }
+    else {
       console.log('Formulario inválido');
-      alert("Llena primero todos los campos")
+      this.AlertService.showAlert(400, 'Llena primero todos los campos', 6000);
     }
   }
 }
+
