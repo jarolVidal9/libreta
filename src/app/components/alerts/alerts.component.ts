@@ -14,6 +14,7 @@ export class AlertsComponent {
   message: any;
   alertColor = '';
   isAlertObject = false;
+  timeoutId: any;
 
   constructor(private alertService: AlertService) { }
 
@@ -30,11 +31,20 @@ export class AlertsComponent {
       this.message = res.message;
       this.alertColor = res.status;
 
+      // servicio para tipificar el mensaje 
       this.getTypeOfMessage(this.message);
 
-      this.showAlert = true;
+      // Cancelar el temporizador existente antes de configurar uno nuevo
+      clearTimeout(this.timeoutId);
 
-      setTimeout(() => {
+      // Ocultar la alerta actual y mostrar la nueva alerta
+      this.showAlert = false;
+      setTimeout(() => { 
+        this.showAlert = true;
+      }, 100);
+
+      // Configurar el temporizador para ocultar la alerta después del tiempo especificado
+      this.timeoutId = setTimeout(() => {
         document.querySelector('.alerta')?.classList.add('hidden');
         this.showAlert = false;
       }, res.time);

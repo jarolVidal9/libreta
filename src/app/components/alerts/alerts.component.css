@@ -14,9 +14,6 @@
   transition: opacity 0.5s ease;
   z-index: 1000;
 }
-.alerta.hidden {
-  opacity: 0; 
-}
 
 @keyframes appearance {
   0% {
@@ -33,6 +30,21 @@
     top: 40px; 
   }
 }
+
+
+.alerta.hidden {
+  animation: hideAlert 0.5s forwards; /* Aplica la animación de salida cuando la alerta se oculta */
+}
+
+@keyframes hideAlert {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 
 .alerta span{
   font-weight: bold;
