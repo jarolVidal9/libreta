@@ -4,6 +4,7 @@ import { ApiBackService } from '../../../core/services/api-back.service';
 import { CommonModule } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { initFlowbite } from 'flowbite';
+import { AlertService } from '../../../core/services/alerts.service';
 
 
 @Component({
@@ -16,14 +17,14 @@ import { initFlowbite } from 'flowbite';
 export class MenuComponent {
   imgUrl: any
   lastClick = 'notes';
-  constructor(private apiBackService:ApiBackService, private cookieService:CookieService, private router:Router){}
+  constructor(private apiBackService:ApiBackService, private cookieService:CookieService, private router:Router, private alertService:AlertService){}
   ngOnInit(): void {
       initFlowbite()
       this.apiBackService.getImageUser().subscribe(
-        (blob: Blob)=>{
+        (blob: Blob) => {
           this.imgUrl = URL.createObjectURL(blob);
         },
-        (error)=>console.error(error)
+        (error)=>this.alertService.showAlert(500,'')
       )
   }
   logout(){

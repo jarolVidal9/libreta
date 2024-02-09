@@ -42,7 +42,10 @@
                             {{item.title}}
                         </h5>
                     </a>
-                    <p class="mb-3 font-xs text-justify font-thin text-gray-700 dark:text-white">{{item.text}}</p>
+                    <div class="h-40">
+                        <p class="mb-3 font-xs text-justify font-thin text-gray-700 dark:text-white">{{item.text}}</p>
+                        <img class="rounded" *ngIf="item.images" [src]="item.images" alt="" srcset="">
+                    </div>
                 </div>
             </div>
         </div>

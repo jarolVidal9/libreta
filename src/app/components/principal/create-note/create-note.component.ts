@@ -16,6 +16,7 @@ export class CreateNoteComponent {
   //list note 
   //selected
   selectedColor: string ="#232427";
+  selectedFile?:File;
   //form for create note
   formNewNote:FormGroup = this.formBuilder.group({
     title:['',[Validators.required]],
@@ -26,7 +27,9 @@ export class CreateNoteComponent {
   //colors
   colors: string[]=['#264D3B', '#472E5B', '#232427', '#6C394F', '#692B17']
   constructor(private apiBackService:ApiBackService, private formBuilder: FormBuilder, private router:Router){}
-
+  onFileSelect(event:any){
+    this.selectedFile = event.target.files[0];
+  }
   ngOnInit(): void {
     initFlowbite()
   }
@@ -44,6 +47,8 @@ export class CreateNoteComponent {
       Object.keys(formValue).forEach(key => {
         formData.append(key, formValue[key]);
       });
+      //carga el archivo
+      if(this.selectedFile) formData.append('image',this.selectedFile, this.selectedFile.name)
       this.apiBackService.createNewNote(formData).subscribe(
         (response)=>{
           alert('La nota se ha creado')

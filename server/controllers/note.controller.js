@@ -45,7 +45,17 @@ const getNotesByUser = async (req, res)=>{
     try {
         const user_id = req.user.user_id
         const notes  = await Note.findAll({where:{user_id:user_id},order: [['updatedAt', 'DESC']]})
-        res.status(200).json(notes)
+        const notesWithImageUrls = notes.map(note => {
+            if(note.images){
+                return {
+                    ...note.toJSON(),
+                    images: `${process.env.BACKURL}/images/${note.images}`
+                };
+            }else{
+                return note.toJSON()
+            }
+        });
+        res.status(200).json(notesWithImageUrls)
     } catch (error) {
         console.log(error);
         res.status(500).json({message:'Error en el servidor'})

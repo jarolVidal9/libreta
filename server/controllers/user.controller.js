@@ -17,7 +17,7 @@ const register = async (req, res) =>{
         //encript password
         const hashedPassword = await bcrypt.hash(result.data.password, 10);
         result.data.password = hashedPassword;
-        if (req.file) result.data.image =req.file.filename
+        if (req.file) result.data.image = req.file.filename
         const emailUnique = await User.findOne({where:{email:result.data.email}})
         const usernameUnique =await  User.findOne({where:{username:result.data.username}})
         if(!emailUnique && !usernameUnique){
@@ -154,7 +154,10 @@ const getImage = async (req,res)=>{
   try {
     const user_id = req.user.user_id
     const user = await User.findOne({where:{user_id:user_id}})
-    res.sendfile('server/storage/imgs/'+user.image);
+    if(user.image){
+      return res.sendfile('server/storage/imgs/'+user.image);
+    }
+    return res.status(204)
   } catch (error) {
     res.status(500).json({status: 500, message:error})
   }

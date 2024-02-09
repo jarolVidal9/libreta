@@ -3,6 +3,8 @@ require('dotenv').config()
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const path = require('path')
+
 //importar rutas
 const userRouter = require('./router/user.router')
 const noteRouter = require('./router/note.router')
@@ -11,6 +13,8 @@ const noteRouter = require('./router/note.router')
 const app = express();
 const PORT =  process.env.PORTBACK || 3000;
 
+//seevidor de imagenes
+app.use('/images', express.static(path.join(__dirname, './storage/imgs')));
 //configuracion de cors para aceptar request de front
 app.use(cors({
   origin: process.env.FRONTURL, // Reemplaza con la URL de tu frontend
