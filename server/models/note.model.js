@@ -26,7 +26,9 @@ Note.init({
     }
 },{
     sequelize,
-    modelName: 'Note'
+    modelName: 'Note',
+    paranoid:true,
+    deletedAt: 'destroyTime'
 })
 
 module.exports = Note;

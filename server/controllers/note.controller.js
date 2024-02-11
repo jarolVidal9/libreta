@@ -18,10 +18,11 @@ const createNote = async (req,res) =>{
 
 const editNote = async (req,res) =>{
     try {
+        if (req.file) req.body.images =req.file.filename
         const id = req.params.note_id;
         const data = req.body
         Note.update(data, {where: {note_id : id}})
-        return res.status(200).json({ message:"Nota edita"});
+        return res.status(200).json({status:200, message:"Nota edita"});
     } catch (error) {
         console.log(error);
         res.status(500).json({message:'Error en el servidor'})
@@ -65,7 +66,8 @@ const getNotesByUser = async (req, res)=>{
 const getOneNote = async(req,res)=>{
     try{
         const note_id = req.params.note_id
-        const note =await Note.findOne({where:{note_id:note_id}})
+        const note = await Note.findOne({where:{note_id:note_id}})
+        note.images = `${process.env.BACKURL}/images/${note.images}`
         res.status(200).json({status:200, note:note})
     }catch(error){
         console.log(error);

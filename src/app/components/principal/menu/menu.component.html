@@ -45,7 +45,7 @@
         <ul class="space-y-2 font-medium">
             <li>
                 <a [routerLink]="['notes']" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" 
-                [ngClass]="{'dark:bg-gray-700':lastClick === 'notes'}" (click)="lastClickOption('notes')" >
+                routerLinkActive="dark:bg-gray-700" >
                     <span class="ms-3 flex">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="me-1 -ms-1 w-5 h-5">
                             <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
@@ -57,7 +57,7 @@
             </li>
             <li>
                 <a [routerLink]="['reminders']" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                [ngClass]="{'dark:bg-gray-700':lastClick === 'reminders'}" (click)="lastClickOption('reminders')">
+                routerLinkActive="dark:bg-gray-700">
                 
                     <span class="flex-1 ms-3 whitespace-nowrap flex">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="me-1 -ms-1 w-5 h-5">
@@ -70,7 +70,7 @@
             </li>
             <li>
                 <a [routerLink]="['check-list']" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                [ngClass]="{'dark:bg-gray-700':lastClick === 'checklist'}" (click)="lastClickOption('checklist')">
+                routerLinkActive="dark:bg-gray-700">
                     <span class="flex-1 ms-3 whitespace-nowrap flex">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="me-1 -ms-1 w-5 h-5">
                             <path fill-rule="evenodd" d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" clip-rule="evenodd" />

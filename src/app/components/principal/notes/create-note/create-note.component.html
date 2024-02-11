@@ -1,14 +1,15 @@
 <main>
-    <a class="w-full flex mt-1 mb-3" [routerLink]="['../notes']"  >
-        <svg class="me-1 -ms-1 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+    <a class="w-full flex mt-1 mb-3" [routerLink]="['../notes']">
+        <svg class="me-1 -ms-1 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke-width="1.5" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
-        </svg>  
+        </svg>
         Volver
     </a>
-    <h1 class="text-center text-xl p-2 border-b rounded-t-lg border-gray-600" [ngStyle]="{ 'background-color': selectedColor }" >Crear Una nueva nota</h1>
-    <form [ngStyle]="{ 'background-color': selectedColor }" class="p-4 md:p-5 rounded-b-lg" 
-    [formGroup]="formNewNote"
-    (ngSubmit)="onSubmitCreateNote()">
+    <h1 class="text-center text-xl p-2 border-b rounded-t-lg border-gray-600"
+        [ngStyle]="{ 'background-color': selectedColor }">Crear Una nueva nota</h1>
+    <form [ngStyle]="{ 'background-color': selectedColor }" class="p-4 md:p-5 rounded-b-lg" [formGroup]="formNewNote"
+        (ngSubmit)="onSubmitCreateNote()">
         <div class="grid gap-4 mb-4 grid-cols-2">
             <div class="col-span-2">
                 <div class="relative z-0">
@@ -36,6 +37,8 @@
             </div>
             <div class="col-span-2">
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Imagen</label>
+                <button *ngIf="preview" (click)="deleteImage()" class="w-6 h-6 bg-red-600 rounded-full justify-end">X</button>
+                <img class="w-52 mb-2 rounded items-center h-auto" *ngIf="preview" [src]="preview" alt="" srcset="">
                 <input (change)="onFileSelect($event)"
                     class="block w-full text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                     id="image" type="file" accept="image/*">
@@ -53,7 +56,8 @@
         <div class="w-full justify-center flex">
             <button type="submit"
                 class="text-white  inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd"
                         d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
                         clip-rule="evenodd"></path>
