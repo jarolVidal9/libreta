@@ -12,7 +12,7 @@ import { AlertsComponent } from './components/alerts/alerts.component';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
-  title = 'libreta';
+  title = 'aNOTAte';
 
   constructor(private alertService: AlertService) { }
 
