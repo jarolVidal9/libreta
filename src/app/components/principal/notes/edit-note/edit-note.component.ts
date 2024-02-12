@@ -45,6 +45,8 @@ export class EditNoteComponent {
         dataNote = data
         this.note = dataNote.note
         this.initForm();
+        console.log(dataNote);
+        
       },
       (error)=> console.error(error)
       )      
@@ -74,6 +76,7 @@ export class EditNoteComponent {
           formData.append(key, formValue[key]);
         });        
         if(this.selectedFile) formData.append('image',this.selectedFile, this.selectedFile.name)
+        else formData.append('image','')
         this.apiBackService.editNote(formData, this.note.note_id).subscribe({
           next: (respose)=>{
             alert('La nota se ha editado')

@@ -67,7 +67,7 @@ const getOneNote = async(req,res)=>{
     try{
         const note_id = req.params.note_id
         const note = await Note.findOne({where:{note_id:note_id}})
-        note.images = `${process.env.BACKURL}/images/${note.images}`
+        if(note.images) note.images = `${process.env.BACKURL}/images/${note.images}`
         res.status(200).json({status:200, note:note})
     }catch(error){
         console.log(error);

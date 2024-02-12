@@ -8,7 +8,6 @@ import { AlertService } from '../../../../core/services/alerts.service';
 import { TimeAgoPipe } from '../../../../pipes/time-ago.pipe';
 import { CutTextPipe } from '../../../../pipes/cut-text.pipe';
 
-
 @Component({
   selector: 'app-notes',
   standalone: true,
