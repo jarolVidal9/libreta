@@ -24,6 +24,8 @@ export class LoginComponent {
 
   formulario!: FormGroup;
 
+  showEmailValidation: boolean = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private apiBackService: ApiBackService,
@@ -40,6 +42,29 @@ export class LoginComponent {
 
   allFieldsValid: boolean = false;
 
+  forgotPassword() {
+    if (this.formulario.get('email')?.value === '') {
+      this.showEmailValidation = true;
+      return; 
+    }
+    const data = {
+      email: this.formulario.get('email')?.value
+    }
+
+    this.apiBackService.forgotPassword(data).subscribe(
+      {
+        next: response => {
+
+          this.AlertService.showAlert(response.status, 'A tu correo han llegado las intrucciones para reestablecer tu contraseña.', 4000);
+        },
+        error: err => {
+          console.log(err)
+          this.AlertService.showAlert(err.status, err.error?.message);
+        }
+      }
+    );
+  }
+
   onSubmit() {
     this.allFieldsValid = true;
 
@@ -50,7 +75,6 @@ export class LoginComponent {
       this.apiBackService.login(this.formulario.value).subscribe(
         {
           next: response => {
-            // Mostrar la alerta por dos segundos
             this.AlertService.showAlert(response.status, '¡Te has logueado exitosamente!', 1500);
 
             setTimeout(() => {

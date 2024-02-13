@@ -30,7 +30,7 @@ export class AlertService {
       this.message = 'Lo sentimos no eres tú, somos nosotros, intentalo más tarde.'
     }
     else {
-      this.stringStatus = 'unknow';
+      this.stringStatus = 'error';
       this.message = 'Error desconocido, intentalo más tarde'
     }
   }

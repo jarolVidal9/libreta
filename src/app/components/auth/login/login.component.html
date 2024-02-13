@@ -1,5 +1,5 @@
 <main>
-  <img src="../../assets/img/background-register.jpg" alt="fondo" class="background-login" />
+  <img src="../../../assets/img/background-register.jpg" alt="fondo" class="background-login" />
 
   <section class="container">
 
@@ -30,10 +30,7 @@
               <label for="email">Correo electrónico</label>
             </div>
             <input type="email" id="email" placeholder="Ingresa tu correo" required formControlName="email" />
-            <div *ngIf="allFieldsValid ||
-                formulario.get('email')?.invalid &&
-                (formulario.get('email')?.dirty ||
-                  formulario.get('email')?.touched)
+            <div *ngIf="allFieldsValid || showEmailValidation || formulario.get('email')?.invalid && (formulario.get('email')?.dirty || formulario.get('email')?.touched)
               ">
               <span class="notice" *ngIf="formulario.get('email')?.errors?.['required']">El correo electrónico es
                 requerido.</span>
@@ -65,7 +62,7 @@
             <label for="">Recordarme</label>
           </div>
 
-          <p id="forgotten">¿Olvidaste tu <a class="text-pink-500 underline font-bold" href="">contraseña</a>?</p>
+          <p id="forgotten">¿Olvidaste tu <a class="text-pink-500 underline font-bold cursor-pointer" (click)="forgotPassword()">contraseña</a>?</p>
 
           <button class="button-login" type="submit">Login</button>
         </form>
