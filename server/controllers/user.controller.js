@@ -169,8 +169,11 @@ const updateUser = async (req, res) => {
 const getImage = async (req, res) => {
   try {
     const user_id = req.user.user_id
-    const user = await User.findOne({ where: { user_id: user_id } })
-    res.sendfile('server/storage/imgs/' + user.image);
+    const user = await User.findOne({where:{user_id:user_id}})
+    if(user.image){
+      return res.sendfile('server/storage/imgs/'+user.image);
+    }
+    return res.status(204)
   } catch (error) {
     res.status(500).json({ status: 500, message: error })
   }

@@ -8,8 +8,8 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
-import { ApiBackService } from '../../core/services/api-back.service';
-import { AlertService } from '../../core/services/alerts.service';
+import { ApiBackService } from '../../../core/services/api-back.service';
+import { AlertService } from '../../../core/services/alerts.service';
 
 
 @Component({

@@ -1,29 +1,29 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { ApiBackService } from '../../../core/services/api-back.service';
 import { CommonModule } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { initFlowbite } from 'flowbite';
+import { AlertService } from '../../../core/services/alerts.service';
 
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [RouterLink, RouterOutlet, CommonModule],
+  imports: [RouterLink, RouterOutlet, CommonModule, RouterLinkActive],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css'
 })
 export class MenuComponent {
   imgUrl: any
-  lastClick = 'notes';
-  constructor(private apiBackService:ApiBackService, private cookieService:CookieService, private router:Router){}
+  constructor(private apiBackService:ApiBackService, private cookieService:CookieService, private router:Router, private alertService:AlertService){}
   ngOnInit(): void {
       initFlowbite()
       this.apiBackService.getImageUser().subscribe(
-        (blob: Blob)=>{
+        (blob: Blob) => {
           this.imgUrl = URL.createObjectURL(blob);
         },
-        (error)=>console.error(error)
+        (error)=>this.alertService.showAlert(500,'')
       )
   }
   logout(){
@@ -34,7 +34,5 @@ export class MenuComponent {
       console.error(error);
     }
   }
-  lastClickOption( last: string){
-    this.lastClick = last
-  }
+
 }

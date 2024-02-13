@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ApiBackService } from '../../../core/services/api-back.service';
+import { ApiBackService } from '../../../../core/services/api-back.service';
 import { initFlowbite } from 'flowbite';
 import { Router, RouterLink } from '@angular/router';
 
@@ -16,17 +16,29 @@ export class CreateNoteComponent {
   //list note 
   //selected
   selectedColor: string ="#232427";
+  selectedFile?:File;
+  preview:string | ArrayBuffer| null = null;
   //form for create note
   formNewNote:FormGroup = this.formBuilder.group({
-    title:['',[Validators.required]],
-    text: ['',[Validators.required]],
-    Image: [''],
+    title:['',[Validators.required,Validators.max(250)]],
+    text: ['',[Validators.required,Validators.max(2000)]],
+    image: [''],
     color:['#232427',[Validators.required]]
   })
   //colors
   colors: string[]=['#264D3B', '#472E5B', '#232427', '#6C394F', '#692B17']
   constructor(private apiBackService:ApiBackService, private formBuilder: FormBuilder, private router:Router){}
-
+  onFileSelect(event:any){
+    const file = event.target.files[0];
+    if(file){
+      this.selectedFile = file;
+      const reader = new FileReader;
+      reader.onload =()=>{
+        this.preview = reader.result
+      }
+      reader.readAsDataURL(file)
+    }
+  }
   ngOnInit(): void {
     initFlowbite()
   }
@@ -44,6 +56,8 @@ export class CreateNoteComponent {
       Object.keys(formValue).forEach(key => {
         formData.append(key, formValue[key]);
       });
+      //carga el archivo
+      if(this.selectedFile) formData.append('image',this.selectedFile, this.selectedFile.name)
       this.apiBackService.createNewNote(formData).subscribe(
         (response)=>{
           alert('La nota se ha creado')
@@ -58,4 +72,8 @@ export class CreateNoteComponent {
     }
   }
 
+  deleteImage() {
+    this.selectedFile = undefined;
+    this.preview = null;
+  }
 }

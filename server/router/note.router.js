@@ -6,7 +6,7 @@ const authUser = require('../middleware/auth')
 
 
 router.post('/createNote',authUser, upload.single('image'),noteController.createNote)
-router.put('/editNote/:note_id',authUser,noteController.editNote)
+router.put('/editNote/:note_id',authUser, upload.single('image') ,noteController.editNote)
 router.delete('/deleteNote/:note_id',authUser,noteController.deleteNote)
 router.get('/getNotesByUser',authUser,noteController.getNotesByUser)
 router.get('/getOneNote/:note_id',authUser, noteController.getOneNote)

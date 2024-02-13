@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
 import { MenuComponent } from './components/principal/menu/menu.component';
 import { loginGuard } from './guards/login.guard';
-import { NotesComponent } from './components/principal/notes/notes.component';
+import { NotesComponent } from './components/principal/notes/list-notes/notes.component';
 import { RemindersComponent } from './components/principal/reminders/reminders.component';
 import { CheckListComponent } from './components/principal/check-list/check-list.component';
-import { CreateNoteComponent } from './components/principal/create-note/create-note.component';
-import { EditNoteComponent } from './components/principal/edit-note/edit-note.component';
+import { CreateNoteComponent } from './components/principal/notes/create-note/create-note.component';
+import { EditNoteComponent } from './components/principal/notes/edit-note/edit-note.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 export const routes: Routes = [

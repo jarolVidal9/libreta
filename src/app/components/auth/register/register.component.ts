@@ -11,8 +11,8 @@ import {
   AbstractControl
 } from '@angular/forms';
 
-import { ApiBackService } from '../../core/services/api-back.service';
-import { AlertService } from '../../core/services/alerts.service';
+import { ApiBackService } from '../../../core/services/api-back.service';
+import { AlertService } from '../../../core/services/alerts.service';
 
 
 @Component({
